@@ -31,19 +31,27 @@ class _HomePageState extends State<HomePage> {
             ),
             Text("UserName",textAlign: TextAlign.center,style: TextStyle(fontSize: 25,color: Colors.white),),
             SizedBox(height: 10,),
-            ListTile(title: Text("Contacts",style: TextStyle(fontSize: 25,color: Colors.white),),onTap: (){
+            ListTile(title: Text("Contacts",style: TextStyle(fontSize: 25,color: Colors.white),),
+              trailing:Icon(Icons.contacts,color: Colors.white,),onTap: (){
             Navigator.push(context, MaterialPageRoute(builder:(ctx)=>Contacts()));
             },),
-            ListTile(title: Text("Favorites Contacts",style: TextStyle(fontSize: 25,color: Colors.white),),onTap: (){
+            ListTile(title: Text("Favorites Contacts",style: TextStyle(fontSize: 25,color: Colors.white),),
+                trailing: const Icon(Icons.favorite, color: Colors.white), onTap: (){
               Navigator.push(context, MaterialPageRoute(builder:(ctx)=>Favorite()));
             },),
-            ListTile(title: Text("Rewards",style: TextStyle(fontSize: 25,color: Colors.white),),onTap: (){
+            ListTile(title: Text("Rewards",style: TextStyle(fontSize: 25,color: Colors.white),),
+              trailing: Icon(Icons.redeem_outlined,color: Colors.white,),
+              onTap: (){
               Navigator.push(context, MaterialPageRoute(builder:(ctx)=>RewardPoints()));
             },),
-            ListTile(title: Text("Other emergencies",style: TextStyle(fontSize: 25,color: Colors.white),),onTap: (){
+            ListTile(title: Text("Other emergencies",style: TextStyle(fontSize: 25,color: Colors.white),),
+              trailing: Icon(Icons.emergency_share_outlined,color: Colors.white,),
+              onTap: (){
               Navigator.push(context, MaterialPageRoute(builder:(ctx)=>otherEmergencies()));
             },),
-            ListTile(title: Text("Sign Out",style: TextStyle(fontSize: 25,color: Colors.white),),onTap: (){
+            ListTile(title: Text("Sign Out",style: TextStyle(fontSize: 25,color: Colors.white),),
+              trailing: Icon(Icons.,color: Colors.white,),
+              onTap: (){
               FirebaseAuth.instance.signOut().then((value) {
                 print("Signed Out");
                 Navigator.push(context,

@@ -109,7 +109,7 @@ Future<void> _notifyContact(FavoriteContact contact, double latitude, double lon
   final _telephonySMS = TelephonySMS();
   await _telephonySMS.requestPermission();
   String googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=$latitude,$longitude";
-  String message1 = 'Emergency: My location is Latitude: $latitude ,Longitude : $longitude  Track me at : $googleMapsUrl';
+  String message1 = 'Emergency: I need help my location is Latitude: $latitude ,Longitude : $longitude  Track me at : $googleMapsUrl';
   await _telephonySMS.sendSMS(
       phone: phoneNumber,
       message: message1);
