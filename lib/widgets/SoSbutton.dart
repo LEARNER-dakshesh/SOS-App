@@ -16,7 +16,7 @@ class _SOSButtonState extends State<SOSButton> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onLongPress: () async { // Move async here
+      onLongPress: () async {
         setState(() {
           isClicked = !isClicked;
         });
@@ -66,7 +66,6 @@ Future<void> _shareLocationWithFavorites() async {
       print("trying to enter, ${value.runtimeType}");
       if (value is Map<String, dynamic>|| value is Map<dynamic,dynamic>) {
 
-
         if (value is Map<String, dynamic>) {
           print("IN 1");
           print("I am in <String, dynamic>");
@@ -109,10 +108,10 @@ Future<void> _notifyContact(FavoriteContact contact, double latitude, double lon
   final _telephonySMS = TelephonySMS();
   await _telephonySMS.requestPermission();
   String googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=$latitude,$longitude";
-  String message1 = 'Emergency: I need help my location is Latitude: $latitude ,Longitude : $longitude  Track me at : $googleMapsUrl';
+  // String message1 = 'Emergency: I need help my location is Latitude: $latitude ,Longitude : $longitude  Track me at : $googleMapsUrl';
   await _telephonySMS.sendSMS(
       phone: phoneNumber,
-      message: message1);
+      message:'Emergency: I need help my location is Latitude: $latitude ,Longitude : $longitude  Track me at : $googleMapsUrl');
 }
 class FavoriteContact {
   String name;

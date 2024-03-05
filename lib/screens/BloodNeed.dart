@@ -12,7 +12,7 @@ class BloodNeeded extends StatefulWidget {
 class _BloodNeededState extends State<BloodNeeded> {
   String? _selectedBloodGroup;
   final List<String> _bloodGroups = ['A', 'B+', 'O', 'O-', 'AB-'];
-  final TextEditingController _hospitalController = TextEditingController(); // Controller to capture text from TextField
+  final TextEditingController _hospitalController = TextEditingController();
   final _telephonySms = TelephonySMS();
 
   @override
@@ -77,7 +77,8 @@ class _BloodNeededState extends State<BloodNeeded> {
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 90),
                 child: TextField(
-                  controller: _hospitalController, // Assign controller to TextField
+                  cursorColor: Colors.white,
+                  controller: _hospitalController,
                   style: TextStyle(color: Colors.white),
                 ),
               ),
@@ -111,7 +112,7 @@ class _BloodNeededState extends State<BloodNeeded> {
 
                   }
                 },
-                child: Text('Send Now'),
+                child: Text('Send Now',style: TextStyle(color: Colors.black),),
               ),
             ],
           ),

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:sos_system/Favorites.dart';
-import 'package:sos_system/RedeemPoints.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sos_system/RewardPoints.dart';
 import 'package:sos_system/otherEmergencies.dart';
 import 'package:sos_system/screens/signin_screen.dart';
@@ -18,6 +18,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final navlinkFontStyle = GoogleFonts.dmSans(textStyle:const TextStyle(fontSize: 20,color: Colors.white));
   String message ="After pressing the button \n we will send an emergengy alert \nto people near you and inform \nto nearest police station" ;
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,38 +27,37 @@ class _HomePageState extends State<HomePage> {
         child: ListView(
           children: [
             Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Icon(Icons.account_circle,size: 200,color: Colors.white,),
+              padding: const EdgeInsets.all(18.0),
+              child: Icon(Icons.account_circle,size: 200,color:Colors.white,),
             ),
-            Text("UserName",textAlign: TextAlign.center,style: TextStyle(fontSize: 25,color: Colors.white),),
+            Text("UserName",textAlign: TextAlign.center,style: GoogleFonts.lato(fontSize: 22,color: Colors.white),),
             SizedBox(height: 10,),
-            ListTile(title: Text("Contacts",style: TextStyle(fontSize: 25,color: Colors.white),),
+            ListTile(title: Text("Contacts",style: TextStyle(fontSize: 20,color: Colors.white),),
               trailing:Icon(Icons.contacts,color: Colors.white,),onTap: (){
             Navigator.push(context, MaterialPageRoute(builder:(ctx)=>Contacts()));
             },),
-            ListTile(title: Text("Favorites Contacts",style: TextStyle(fontSize: 25,color: Colors.white),),
-                trailing: const Icon(Icons.favorite, color: Colors.white), onTap: (){
+            ListTile(title: Text("Favorites Contacts",style: navlinkFontStyle),
+                trailing: const Icon(Icons.favorite, color: Colors.white),onTap: (){
               Navigator.push(context, MaterialPageRoute(builder:(ctx)=>Favorite()));
             },),
-            ListTile(title: Text("Rewards",style: TextStyle(fontSize: 25,color: Colors.white),),
-              trailing: Icon(Icons.redeem_outlined,color: Colors.white,),
+            ListTile(title: Text("Rewards",style: navlinkFontStyle),
+            trailing: Icon(Icons.redeem_outlined,color: Colors.white,),
               onTap: (){
               Navigator.push(context, MaterialPageRoute(builder:(ctx)=>RewardPoints()));
             },),
-            ListTile(title: Text("Other emergencies",style: TextStyle(fontSize: 25,color: Colors.white),),
+            ListTile(title: Text("Other emergencies",style: navlinkFontStyle),
               trailing: Icon(Icons.emergency_share_outlined,color: Colors.white,),
               onTap: (){
               Navigator.push(context, MaterialPageRoute(builder:(ctx)=>otherEmergencies()));
             },),
-            ListTile(title: Text("Sign Out",style: TextStyle(fontSize: 25,color: Colors.white),),
-              trailing: Icon(Icons.,color: Colors.white,),
+            ListTile(title: Text("Sign Out",style: navlinkFontStyle),
+              trailing: Icon(Icons.logout,color: Colors.white,),
               onTap: (){
               FirebaseAuth.instance.signOut().then((value) {
                 print("Signed Out");
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => SignInScreen()));
               });
-
             },),
           ],
         ),

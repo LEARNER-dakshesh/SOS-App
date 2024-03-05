@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sos_system/screens/BloodNeed.dart';
 import 'package:velocity_x/velocity_x.dart';
+
+
+
+
+final navlinkFontStyle = GoogleFonts.dmSans(textStyle:const TextStyle(fontSize: 20,color: Colors.white));
 
 class otherEmergencies extends StatelessWidget {
   const otherEmergencies({Key? key}) : super(key: key);
 
   @override
+
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final topPadding = screenHeight * 0.2;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Other Emergency",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+        title: Text("Other Emergency",style:navlinkFontStyle,),
         centerTitle: true,
         backgroundColor:Color.fromARGB(255, 135, 4,4),
         iconTheme: IconThemeData(
