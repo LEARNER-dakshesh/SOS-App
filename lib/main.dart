@@ -2,6 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:sos_system/HomePage.dart';
+import 'package:sos_system/screens/signin_screen.dart';
 import 'package:sos_system/screens/splashscreen.dart';
 
 var firebaseOptions = FirebaseOptions(
@@ -10,6 +12,7 @@ var firebaseOptions = FirebaseOptions(
   messagingSenderId: "com.example.sos_system",
   projectId: "sossystem-e01f8",
 );
+
 void main() async {
   //initializeBox();
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,12 +29,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Gaurdian',
+      title: 'Kavatch',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home:Splashscreen(),
+      home:SignInScreen(),
     );
   }
 }

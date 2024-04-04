@@ -10,6 +10,21 @@
     <!-- Include this for background location access if targeting Android 11 (API level 30) or higher -->
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
+    <!-- Tell Google Play Store that your app uses Bluetooth LE
+     Set android:required="true" if bluetooth is necessary -->
+    <uses-feature android:name="android.hardware.bluetooth_le" android:required="true" />
+
+    <!-- New Bluetooth permissions in Android 12
+    https://developer.android.com/about/versions/12/features/bluetooth-permissions -->
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN"  />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+
+    <!-- legacy for Android 11 or lower -->
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+    <!-- legacy for Android 9 or lower -->
+
 
     <!-- Permissions for sending SMS -->
     <uses-permission android:name="android.permission.SEND_SMS" />

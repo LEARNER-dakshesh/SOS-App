@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:sos_system/HomePage.dart';
 import 'package:sos_system/reusable_widgets/reusable_widget.dart';
 import 'package:sos_system/screens/reset_password.dart';
+import '../HomePage.dart';
 import 'homescreen.dart';
 import 'signup_screen.dart';
 
@@ -14,8 +14,8 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  TextEditingController _passwordTextController = TextEditingController();
-  TextEditingController _emailTextController = TextEditingController();
+  final TextEditingController _passwordTextController = TextEditingController();
+  final TextEditingController _emailTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +26,7 @@ class _SignInScreenState extends State<SignInScreen> {
             gradient: LinearGradient(colors: [
               Color.fromARGB(255, 135, 4, 4),
               Color.fromARGB(255, 6, 0, 0),
-        ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+            ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.fromLTRB(
@@ -37,7 +37,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 const SizedBox(
                   height: 30,
                 ),
-                reusableTextField("Enter Email", Icons.person_outline, false,
+                reusableTextField("Enter UserName", Icons.person_outline, false,
                     _emailTextController),
                 const SizedBox(
                   height: 20,
@@ -51,11 +51,11 @@ class _SignInScreenState extends State<SignInScreen> {
                 firebaseUIButton(context, "Sign In", () {
                   FirebaseAuth.instance
                       .signInWithEmailAndPassword(
-                          email: _emailTextController.text,
-                          password: _passwordTextController.text)
+                      email: _emailTextController.text,
+                      password: _passwordTextController.text)
                       .then((value) {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomePage()));
+                        MaterialPageRoute(builder: (context) => HomeScreen()));
                   }).onError((error, stackTrace) {
                     print("Error ${error.toString()}");
                   });
@@ -63,10 +63,30 @@ class _SignInScreenState extends State<SignInScreen> {
                 signUpOption()
               ],
             ),
+
           ),
         ),
       ),
     );
+  }
+  // yeh check karega ki user signed in hai ya nhi ...agar haa toh phir direct login ho jayega
+
+  @override
+  void initState() {
+    super.initState();
+    checkUserLoggedIn();
+  }
+
+  void checkUserLoggedIn() {
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user != null) {
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => HomeScreen()),
+        );
+      }
+    });
   }
 
   Row signUpOption() {
@@ -78,10 +98,10 @@ class _SignInScreenState extends State<SignInScreen> {
         GestureDetector(
           onTap: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SignUpScreen()));
+                MaterialPageRoute(builder: (context) => HomePage()));
           },
-           child: const Text(
-             " Sign Up",
+          child: const Text(
+            " Sign Up",
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
         )
