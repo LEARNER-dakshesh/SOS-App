@@ -332,6 +332,7 @@
 // //     return Float32List.fromList([this]).buffer.asUint8List();
 // //   }
 // // }
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hive/hive.dart';
@@ -356,10 +357,10 @@ class _SOSButtonState extends State<SOSButton> {
 
         if (isClicked) {
           try {
-            await _shareLocationWithFavorites();
+            await _shareLocationWithFavorites(context);
             // print("Successfully shared location with favorites");
-            final snackBar=SnackBar(content: Text("Your location has been Shared"),backgroundColor: Colors.red,);
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            // final snackBar=SnackBar(content: Text("Your location has been Shared"),backgroundColor: Colors.red,);
+            // ScaffoldMessenger.of(context).showSnackBar(snackBar);
           } catch (e) {
             print("Error sharing location:$e");
           }
@@ -377,7 +378,7 @@ class _SOSButtonState extends State<SOSButton> {
     );
   }
 }
-Future<void> _shareLocationWithFavorites() async {
+Future<void> _shareLocationWithFavorites(context) async {
   try {
     // Get current location
     Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
@@ -391,40 +392,48 @@ Future<void> _shareLocationWithFavorites() async {
     // print("Hive box 'favorites' opened successfully.");
     // Iterate through favorite contacts
     // print('Number of values in contactsBox: ${contactsBox.values.length}');
+    if (contactsBox.isNotEmpty) {
+      final snackBar=SnackBar(content: Text("Your location has been Shared"),backgroundColor: Colors.red,);
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      for (var value in contactsBox.values) {
+        print('fetching ...');
+        print('Value is a ${value.runtimeType}: $value');
 
-    for (var value in contactsBox.values) {
-      print('fetching ...');
-      print('Value is a ${value.runtimeType}: $value');
-
-      print("trying to enter, ${value.runtimeType}");
-      if (value is Map<String, dynamic>|| value is Map<dynamic,dynamic>) {
-        if (value is Map<String, dynamic>) {
-          print("IN 1");
-          print("I am in <String, dynamic>");
-          print('Value is a map: $value');
-          if (value.containsKey('name')) {
-            print('Value contains key "name": ${value['name']}');
-            FavoriteContact contact = FavoriteContact.fromJson(value);
-            print('Favorite contact name: ${contact
-                .name}'); // Print contact name
-            // Notify contact about shared location
+        print("trying to enter, ${value.runtimeType}");
+        if (value is Map<String, dynamic> || value is Map<dynamic, dynamic>) {
+          if (value is Map<String, dynamic>) {
+            print("IN 1");
+            print("I am in <String, dynamic>");
+            print('Value is a map: $value');
+            if (value.containsKey('name')) {
+              print('Value contains key "name": ${value['name']}');
+              FavoriteContact contact = FavoriteContact.fromJson(value);
+              print('Favorite contact name: ${contact
+                  .name}'); // Print contact name
+              // Notify contact about shared location
+              _notifyContact(contact, position.latitude, position.longitude);
+            }
+          } else if (value is Map<dynamic, dynamic>) {
+            print("I am in <dynamic, dynamic>");
+            Map<String, dynamic> typedMap = value.cast<String, dynamic>();
+            FavoriteContact contact = FavoriteContact.fromJson(typedMap);
+            print('Favorite contact name: ${contact.name}');
             _notifyContact(contact, position.latitude, position.longitude);
           }
-        }else if (value is Map<dynamic, dynamic>) {
-          print("I am in <dynamic, dynamic>");
-          Map<String, dynamic> typedMap = value.cast<String, dynamic>();
-          FavoriteContact contact = FavoriteContact.fromJson(typedMap);
-          print('Favorite contact name: ${contact.name}');
-          _notifyContact(contact, position.latitude, position.longitude);
+          else {
+            print("IN 3");
+            print('Value does not contain key "name"');
+          }
         }
         else {
-          print("IN 3");
-          print('Value does not contain key "name"');
+          print('Value is not a map: $value');
         }
       }
-      else {
-        print('Value is not a map: $value');
-      }
+    }else{
+      print('Please select at least 1 favorite contact');
+      // Display error message to the user
+      final snackBar=SnackBar(content: Text("Please select at least 1 favorite contact"),backgroundColor: Colors.red,);
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
 
 
