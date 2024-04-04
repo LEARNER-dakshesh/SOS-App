@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:sos_system/reusable_widgets/reusable_widget.dart';
 import 'package:sos_system/screens/reset_password.dart';
 import '../HomePage.dart';
-import 'homescreen.dart';
 import 'signup_screen.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -16,6 +15,7 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController _passwordTextController = TextEditingController();
   final TextEditingController _emailTextController = TextEditingController();
+  bool _showErrorMessage = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,11 +55,22 @@ class _SignInScreenState extends State<SignInScreen> {
                       password: _passwordTextController.text)
                       .then((value) {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()));
-                  }).onError((error, stackTrace) {
+                        MaterialPageRoute(builder: (context) => HomePage()));
+                  }).catchError((error) { // Catch the sign-in error
+                    setState(() {
+                      _showErrorMessage = true; // Set the flag to show error message
+                    });
                     print("Error ${error.toString()}");
                   });
                 }),
+                if (_showErrorMessage)
+                  Text(
+                    "Incorrect email or password. Please check and try again.",
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 14,
+                    ),
+                  ),
                 signUpOption()
               ],
             ),
@@ -83,7 +94,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => HomeScreen()),
+          MaterialPageRoute(builder: (context) => HomePage()),
         );
       }
     });

@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:sos_system/HomePage.dart';
-import 'package:sos_system/screens/homescreen.dart';
 
 import '../reusable_widgets/reusable_widget.dart';
 

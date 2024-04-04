@@ -343,7 +343,6 @@ class SOSButton extends StatefulWidget {
   @override
   _SOSButtonState createState() => _SOSButtonState();
 }
-
 class _SOSButtonState extends State<SOSButton> {
   bool isClicked = false;
 
@@ -362,7 +361,7 @@ class _SOSButtonState extends State<SOSButton> {
             final snackBar=SnackBar(content: Text("Your location has been Shared"),backgroundColor: Colors.red,);
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           } catch (e) {
-            print("Error sharing location: $e");
+            print("Error sharing location:$e");
           }
         }
       },
@@ -399,8 +398,6 @@ Future<void> _shareLocationWithFavorites() async {
 
       print("trying to enter, ${value.runtimeType}");
       if (value is Map<String, dynamic>|| value is Map<dynamic,dynamic>) {
-
-
         if (value is Map<String, dynamic>) {
           print("IN 1");
           print("I am in <String, dynamic>");
@@ -438,12 +435,11 @@ Future<void> _shareLocationWithFavorites() async {
 }
 
 Future<void> _notifyContact(FavoriteContact contact, double latitude, double longitude) async {
-  // Implement your logic to notify the contact about the shared location
   String phoneNumber = contact.phoneNumber;
   final _telephonySMS = TelephonySMS();
   await _telephonySMS.requestPermission();
   String googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=$latitude,$longitude";
-  String message1 = 'Emergency: My location is Latitude: $latitude ,Longitude : $longitude  Track me at : $googleMapsUrl';
+  String message1 = 'Emergency: I need help my location is Latitude: $latitude ,Longitude : $longitude  Track me at : $googleMapsUrl';
   await _telephonySMS.sendSMS(
       phone: phoneNumber,
       message: message1);

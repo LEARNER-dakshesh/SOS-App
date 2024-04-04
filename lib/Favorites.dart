@@ -15,7 +15,7 @@ class _FavoriteState extends State<Favorite> {
   @override
   void initState() {
     super.initState();
-    retrieveContacts(); // Retrieve contacts when the widget is initialized
+    retrieveContacts();
   }
 
   @override

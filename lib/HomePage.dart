@@ -9,7 +9,7 @@ import 'package:sos_system/otherEmergencies.dart';
 import 'package:sos_system/screens/signin_screen.dart';
 import 'contacts.dart';
 import 'widgets/SoSbutton.dart';
-
+import 'package:permission_handler/permission_handler.dart';
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -18,6 +18,33 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  void initState() {
+    super.initState();
+    requestPermissions();
+  }
+
+  void requestPermissions() async {
+    // Request location and SMS permissions concurrently
+    var statusLocation = await Permission.location.request();
+    var statusSMS = await Permission.sms.request();
+
+    // Handle location permission request
+    if (statusLocation.isGranted) {
+      // Location permission granted
+    } else if (statusLocation.isDenied) {
+      // Location permission denied
+    } else if (statusLocation.isPermanentlyDenied) {
+      // Location permission permanently denied
+      openAppSettings(); // Open app settings to allow the user to manually enable permissions
+    }
+
+    if (statusSMS.isGranted) {
+    } else if (statusSMS.isDenied) {
+      // SMS permission denied
+    } else if (statusSMS.isPermanentlyDenied) {
+      openAppSettings(); // Open app settings to allow the user to manually enable permissions
+    }
+  }
   final navlinkFontStyle = GoogleFonts.dmSans(textStyle:const TextStyle(fontSize: 20,color: Colors.white));
   String message ="After pressing the button \n we will send an emergengy alert \nto people near you and inform \nto nearest police station" ;
   Widget build(BuildContext context) {

@@ -4,7 +4,6 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:sos_system/HomePage.dart';
 import 'package:sos_system/screens/BloodNeed.dart';
-import 'package:sos_system/screens/homescreen.dart';
 import 'package:sos_system/screens/signin_screen.dart';
 
 class Splashscreen extends StatefulWidget {
